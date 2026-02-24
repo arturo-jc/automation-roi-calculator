@@ -105,9 +105,22 @@
                             </div>
                         }
                         <div class="col-span-3 flex items-center justify-center gap-4">
-                            <p-button label="Generate Report" [outlined]="true" styleClass="w-full" class="flex-1" />
+                            <p-button
+                                label="Generate Internal ROI Report"
+                                [outlined]="true"
+                                styleClass="w-full"
+                                class="flex-1"
+                                [loading]="reportGenerating()"
+                                [disabled]="reportGenerating()"
+                                (onClick)="generateInternalRoiReport()"
+                            />
                             <p-button label="Search for Grants" [outlined]="true" styleClass="w-full" class="flex-1" />
                         </div>
+                        @if (reportError()) {
+                            <div class="col-span-3 text-red-600 dark:text-red-400 text-sm">
+                                {{ reportError() }}
+                            </div>
+                        }
                     </div>
                 </div>
             }
