@@ -147,7 +147,7 @@ export class InvestmentDetailPanel {
             return 'http://localhost:4000/api/reports/pdf';
         }
 
-        return '/api/reports/pdf';
+        return 'https://api.stepbystepstrength.com/api/reports/pdf';
     }
 
     private extractFilename(contentDisposition: string | null): string {
