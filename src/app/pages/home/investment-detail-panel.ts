@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, effect, inject, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AutomationInvestment } from './automation-investments';
@@ -26,6 +26,24 @@ export class InvestmentDetailPanel {
     discountRatePercent: number | null = null;
 
     result: RoiCalculationResult | null = null;
+
+    constructor() {
+        effect(() => {
+            const inv = this.investment();
+            if (inv) {
+                this.ftePositions = inv.defaultFtePositions;
+                this.fullyLoadedAnnualCostPerFte = inv.defaultFullyLoadedAnnualCostPerFte;
+                this.timeHorizonYears = inv.defaultTimeHorizonYears;
+            } else {
+                this.ftePositions = null;
+                this.fullyLoadedAnnualCostPerFte = null;
+                this.timeHorizonYears = null;
+            }
+            this.includeNpv = false;
+            this.discountRatePercent = null;
+            this.result = null;
+        });
+    }
 
     calculate(): void {
         const inv = this.investment();
