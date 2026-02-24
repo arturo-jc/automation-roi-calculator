@@ -244,7 +244,7 @@ export class InvestmentDetailPanel {
             return `http://localhost:4000${path}`;
         }
 
-        return path;
+        return 'https://api.stepbystepstrength.com/api/grants?country=CA';
     }
 
     private extractFilename(contentDisposition: string | null): string {
