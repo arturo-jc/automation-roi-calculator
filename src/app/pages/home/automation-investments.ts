@@ -2,8 +2,9 @@ import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Listbox } from 'primeng/listbox';
+import { InvestmentDetailPanel } from './investment-detail-panel';
 
-interface AutomationInvestment {
+export interface AutomationInvestment {
     id: number;
     name: string;
     category: string;
@@ -154,67 +155,8 @@ const INVESTMENTS: AutomationInvestment[] = [
 @Component({
     selector: 'app-automation-investments',
     standalone: true,
-    imports: [CommonModule, FormsModule, Listbox],
-    template: `
-        <div class="flex gap-6 h-full">
-            <!-- Left: Selectable List -->
-            <div class="w-5/12">
-                <p-listbox [options]="investments" [(ngModel)]="selectedInvestment" optionLabel="name" [filter]="true" filterPlaceHolder="Search investments..." [listStyle]="{ 'max-height': '65vh' }" class="w-full">
-                    <ng-template #option let-item>
-                        <div class="flex items-center gap-3 py-1">
-                            <span class="pi pi-box text-primary"></span>
-                            <div>
-                                <div class="font-medium">{{ item.name }}</div>
-                                <div class="text-sm text-surface-500">{{ item.category }}</div>
-                            </div>
-                        </div>
-                    </ng-template>
-                </p-listbox>
-            </div>
-
-            <!-- Right: Details Panel -->
-            <div class="w-7/12">
-                @if (selected()) {
-                    <div class="bg-surface-0 dark:bg-surface-900 rounded-2xl border border-surface-200 dark:border-surface-700 overflow-hidden">
-                        <!-- Image Container -->
-                        <div class="aspect-square w-full max-h-72 overflow-hidden bg-surface-100 dark:bg-surface-800">
-                            <img [src]="selected()!.imageUrl" [alt]="selected()!.name" class="w-full h-full object-cover" />
-                        </div>
-
-                        <!-- Details -->
-                        <div class="p-6">
-                            <h2 class="text-2xl font-bold text-surface-900 dark:text-surface-0 mb-1">
-                                {{ selected()!.name }}
-                            </h2>
-                            <span class="inline-block text-sm font-medium text-primary bg-primary/10 px-3 py-1 rounded-full mb-4">
-                                {{ selected()!.category }}
-                            </span>
-                            <p class="text-surface-600 dark:text-surface-400 mb-6 leading-relaxed">
-                                {{ selected()!.description }}
-                            </p>
-
-                            <div class="grid grid-cols-3 gap-4">
-                                <div class="bg-surface-50 dark:bg-surface-800 rounded-xl p-4">
-                                    <div class="text-sm text-surface-500 dark:text-surface-400 mb-1">Equipment Cost</div>
-                                    <div class="font-semibold text-surface-900 dark:text-surface-0">{{ selected()!.equipmentCost | currency: 'USD' : 'symbol' : '1.0-0' }}</div>
-                                </div>
-                                <div class="bg-surface-50 dark:bg-surface-800 rounded-xl p-4">
-                                    <div class="text-sm text-surface-500 dark:text-surface-400 mb-1">Annual Operating Costs</div>
-                                    <div class="font-semibold text-surface-900 dark:text-surface-0">{{ selected()!.otherAnnualCosts | currency: 'USD' : 'symbol' : '1.0-0' }}</div>
-                                </div>
-                                <div class="bg-surface-50 dark:bg-surface-800 rounded-xl p-4"></div>
-                            </div>
-                        </div>
-                    </div>
-                } @else {
-                    <div class="flex flex-col items-center justify-center h-full text-surface-400 dark:text-surface-500">
-                        <span class="pi pi-search text-5xl mb-4"></span>
-                        <p class="text-lg">Select an investment to view details</p>
-                    </div>
-                }
-            </div>
-        </div>
-    `
+    imports: [CommonModule, FormsModule, Listbox, InvestmentDetailPanel],
+    templateUrl: './automation-investments.html'
 })
 export class AutomationInvestments {
     investments = INVESTMENTS;
