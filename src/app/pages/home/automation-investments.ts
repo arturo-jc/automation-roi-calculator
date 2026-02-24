@@ -7,9 +7,8 @@ interface AutomationInvestment {
     id: number;
     name: string;
     category: string;
-    estimatedCost: string;
-    annualSavings: string;
-    roiTimeline: string;
+    equipmentCost: number;
+    otherAnnualCosts: number;
     description: string;
     imageUrl: string;
 }
@@ -19,9 +18,8 @@ const INVESTMENTS: AutomationInvestment[] = [
         id: 1,
         name: 'Autonomous Tractor',
         category: 'Field Operations',
-        estimatedCost: '$250,000 – $500,000',
-        annualSavings: '$60,000 – $120,000',
-        roiTimeline: '3–5 years',
+        equipmentCost: 250000,
+        otherAnnualCosts: 25000,
         description: 'Self-driving tractor capable of plowing, seeding, and field preparation with minimal human oversight.',
         imageUrl: 'https://images.unsplash.com/photo-1605338198618-04031d6f1569?w=400&h=400&fit=crop'
     },
@@ -29,9 +27,8 @@ const INVESTMENTS: AutomationInvestment[] = [
         id: 2,
         name: 'GPS Auto-Steer System',
         category: 'Field Operations',
-        estimatedCost: '$10,000 – $25,000',
-        annualSavings: '$8,000 – $15,000',
-        roiTimeline: '1–2 years',
+        equipmentCost: 10000,
+        otherAnnualCosts: 1500,
         description: 'Retrofittable GPS guidance system that provides sub-inch accuracy for straight rows and reduced overlap.',
         imageUrl: 'https://images.unsplash.com/photo-1586771107445-b3e7eb5bb3d4?w=400&h=400&fit=crop'
     },
@@ -39,9 +36,8 @@ const INVESTMENTS: AutomationInvestment[] = [
         id: 3,
         name: 'Precision Planter with Variable Rate Technology',
         category: 'Planting',
-        estimatedCost: '$50,000 – $150,000',
-        annualSavings: '$20,000 – $45,000',
-        roiTimeline: '2–4 years',
+        equipmentCost: 50000,
+        otherAnnualCosts: 5000,
         description: 'Advanced planter that adjusts seed spacing, depth, and population rates based on real-time soil data.',
         imageUrl: 'https://images.unsplash.com/photo-1595508064774-5ff825a66592?w=400&h=400&fit=crop'
     },
@@ -49,9 +45,8 @@ const INVESTMENTS: AutomationInvestment[] = [
         id: 4,
         name: 'Agricultural Drones (Spraying & Scouting)',
         category: 'Crop Management',
-        estimatedCost: '$15,000 – $75,000',
-        annualSavings: '$12,000 – $35,000',
-        roiTimeline: '1–3 years',
+        equipmentCost: 15000,
+        otherAnnualCosts: 3000,
         description: 'Multi-purpose drones for aerial crop scouting, precision spraying, and field mapping with NDVI imaging.',
         imageUrl: 'https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=400&h=400&fit=crop'
     },
@@ -59,9 +54,8 @@ const INVESTMENTS: AutomationInvestment[] = [
         id: 5,
         name: 'Robotic Weeding System',
         category: 'Crop Management',
-        estimatedCost: '$100,000 – $200,000',
-        annualSavings: '$30,000 – $70,000',
-        roiTimeline: '2–4 years',
+        equipmentCost: 100000,
+        otherAnnualCosts: 12000,
         description: 'AI-powered robot that identifies and removes weeds mechanically or with targeted micro-sprays, reducing herbicide use.',
         imageUrl: 'https://images.unsplash.com/photo-1592419044706-39796d40f98c?w=400&h=400&fit=crop'
     },
@@ -69,9 +63,8 @@ const INVESTMENTS: AutomationInvestment[] = [
         id: 6,
         name: 'Smart Irrigation System with Soil Moisture Sensors',
         category: 'Water Management',
-        estimatedCost: '$5,000 – $30,000',
-        annualSavings: '$10,000 – $25,000',
-        roiTimeline: '1–2 years',
+        equipmentCost: 5000,
+        otherAnnualCosts: 800,
         description: 'Sensor-driven irrigation that monitors soil moisture at multiple depths and automates watering schedules.',
         imageUrl: 'https://images.unsplash.com/photo-1563514227147-6d2ff665a6a0?w=400&h=400&fit=crop'
     },
@@ -79,9 +72,8 @@ const INVESTMENTS: AutomationInvestment[] = [
         id: 7,
         name: 'Combine Yield Monitoring System',
         category: 'Harvesting',
-        estimatedCost: '$8,000 – $20,000',
-        annualSavings: '$10,000 – $20,000',
-        roiTimeline: '1–2 years',
+        equipmentCost: 8000,
+        otherAnnualCosts: 1200,
         description: 'Real-time yield mapping system installed on combines to track bushels per acre across every pass.',
         imageUrl: 'https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=400&h=400&fit=crop'
     },
@@ -89,9 +81,8 @@ const INVESTMENTS: AutomationInvestment[] = [
         id: 8,
         name: 'Automated Grain Bin Monitoring',
         category: 'Storage',
-        estimatedCost: '$3,000 – $10,000',
-        annualSavings: '$5,000 – $15,000',
-        roiTimeline: '< 1 year',
+        equipmentCost: 3000,
+        otherAnnualCosts: 500,
         description: 'Wireless sensors that track temperature, moisture, and CO₂ levels inside grain bins to prevent spoilage.',
         imageUrl: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=400&h=400&fit=crop'
     },
@@ -99,9 +90,8 @@ const INVESTMENTS: AutomationInvestment[] = [
         id: 9,
         name: 'AI Crop Disease Detection (Computer Vision)',
         category: 'Crop Management',
-        estimatedCost: '$10,000 – $50,000',
-        annualSavings: '$15,000 – $40,000',
-        roiTimeline: '1–2 years',
+        equipmentCost: 10000,
+        otherAnnualCosts: 2000,
         description: 'Camera-based system using machine learning to identify crop diseases, nutrient deficiencies, and pest damage early.',
         imageUrl: 'https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=400&h=400&fit=crop'
     },
@@ -109,9 +99,8 @@ const INVESTMENTS: AutomationInvestment[] = [
         id: 10,
         name: 'Automated Variable-Rate Fertilizer Spreader',
         category: 'Nutrient Management',
-        estimatedCost: '$30,000 – $80,000',
-        annualSavings: '$15,000 – $35,000',
-        roiTimeline: '2–3 years',
+        equipmentCost: 30000,
+        otherAnnualCosts: 4000,
         description: 'GPS-linked spreader that adjusts fertilizer application rates zone-by-zone based on soil test maps.',
         imageUrl: 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400&h=400&fit=crop'
     },
@@ -119,9 +108,8 @@ const INVESTMENTS: AutomationInvestment[] = [
         id: 11,
         name: 'Livestock Monitoring Sensors',
         category: 'Livestock',
-        estimatedCost: '$5,000 – $25,000',
-        annualSavings: '$8,000 – $20,000',
-        roiTimeline: '1–2 years',
+        equipmentCost: 5000,
+        otherAnnualCosts: 1000,
         description: 'Wearable sensors tracking animal health, activity, feeding patterns, and estrus detection in real time.',
         imageUrl: 'https://images.unsplash.com/photo-1527153857715-3908f2bae5e8?w=400&h=400&fit=crop'
     },
@@ -129,9 +117,8 @@ const INVESTMENTS: AutomationInvestment[] = [
         id: 12,
         name: 'Robotic Milking System',
         category: 'Livestock',
-        estimatedCost: '$150,000 – $250,000',
-        annualSavings: '$40,000 – $80,000',
-        roiTimeline: '3–5 years',
+        equipmentCost: 150000,
+        otherAnnualCosts: 15000,
         description: 'Fully automated milking parlor where cows voluntarily enter and are milked by robotic arms on their own schedule.',
         imageUrl: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=400&h=400&fit=crop'
     },
@@ -139,9 +126,8 @@ const INVESTMENTS: AutomationInvestment[] = [
         id: 13,
         name: 'Autonomous Harvesting Robots',
         category: 'Harvesting',
-        estimatedCost: '$200,000 – $400,000',
-        annualSavings: '$50,000 – $100,000',
-        roiTimeline: '3–5 years',
+        equipmentCost: 200000,
+        otherAnnualCosts: 20000,
         description: 'Robotic harvesters for fruits and vegetables using computer vision to identify ripe produce and pick without damage.',
         imageUrl: 'https://images.unsplash.com/photo-1601000938259-9e92002320b2?w=400&h=400&fit=crop'
     },
@@ -149,9 +135,8 @@ const INVESTMENTS: AutomationInvestment[] = [
         id: 14,
         name: 'Farm Management Software (AI-Driven Optimization)',
         category: 'Software',
-        estimatedCost: '$2,000 – $15,000/year',
-        annualSavings: '$20,000 – $50,000',
-        roiTimeline: '< 1 year',
+        equipmentCost: 2000,
+        otherAnnualCosts: 2000,
         description: 'Centralized platform using AI to optimize planting schedules, input purchases, labor allocation, and market timing.',
         imageUrl: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=400&fit=crop'
     },
@@ -159,9 +144,8 @@ const INVESTMENTS: AutomationInvestment[] = [
         id: 15,
         name: 'On-Farm Weather Station with Predictive Analytics',
         category: 'Data & Analytics',
-        estimatedCost: '$1,500 – $8,000',
-        annualSavings: '$5,000 – $15,000',
-        roiTimeline: '< 1 year',
+        equipmentCost: 1500,
+        otherAnnualCosts: 500,
         description: 'Hyperlocal weather station providing micro-climate data and AI-powered forecasts for spray windows and frost alerts.',
         imageUrl: 'https://images.unsplash.com/photo-1504386106331-3e4e71712b38?w=400&h=400&fit=crop'
     }
@@ -175,15 +159,7 @@ const INVESTMENTS: AutomationInvestment[] = [
         <div class="flex gap-6 h-full">
             <!-- Left: Selectable List -->
             <div class="w-5/12">
-                <p-listbox
-                    [options]="investments"
-                    [(ngModel)]="selectedInvestment"
-                    optionLabel="name"
-                    [filter]="true"
-                    filterPlaceHolder="Search investments..."
-                    [listStyle]="{ 'max-height': '65vh' }"
-                    class="w-full"
-                >
+                <p-listbox [options]="investments" [(ngModel)]="selectedInvestment" optionLabel="name" [filter]="true" filterPlaceHolder="Search investments..." [listStyle]="{ 'max-height': '65vh' }" class="w-full">
                     <ng-template #option let-item>
                         <div class="flex items-center gap-3 py-1">
                             <span class="pi pi-box text-primary"></span>
@@ -202,11 +178,7 @@ const INVESTMENTS: AutomationInvestment[] = [
                     <div class="bg-surface-0 dark:bg-surface-900 rounded-2xl border border-surface-200 dark:border-surface-700 overflow-hidden">
                         <!-- Image Container -->
                         <div class="aspect-square w-full max-h-72 overflow-hidden bg-surface-100 dark:bg-surface-800">
-                            <img
-                                [src]="selected()!.imageUrl"
-                                [alt]="selected()!.name"
-                                class="w-full h-full object-cover"
-                            />
+                            <img [src]="selected()!.imageUrl" [alt]="selected()!.name" class="w-full h-full object-cover" />
                         </div>
 
                         <!-- Details -->
@@ -223,17 +195,14 @@ const INVESTMENTS: AutomationInvestment[] = [
 
                             <div class="grid grid-cols-3 gap-4">
                                 <div class="bg-surface-50 dark:bg-surface-800 rounded-xl p-4">
-                                    <div class="text-sm text-surface-500 dark:text-surface-400 mb-1">Estimated Cost</div>
-                                    <div class="font-semibold text-surface-900 dark:text-surface-0">{{ selected()!.estimatedCost }}</div>
+                                    <div class="text-sm text-surface-500 dark:text-surface-400 mb-1">Equipment Cost</div>
+                                    <div class="font-semibold text-surface-900 dark:text-surface-0">{{ selected()!.equipmentCost | currency: 'USD' : 'symbol' : '1.0-0' }}</div>
                                 </div>
                                 <div class="bg-surface-50 dark:bg-surface-800 rounded-xl p-4">
-                                    <div class="text-sm text-surface-500 dark:text-surface-400 mb-1">Annual Savings</div>
-                                    <div class="font-semibold text-green-600 dark:text-green-400">{{ selected()!.annualSavings }}</div>
+                                    <div class="text-sm text-surface-500 dark:text-surface-400 mb-1">Annual Operating Costs</div>
+                                    <div class="font-semibold text-surface-900 dark:text-surface-0">{{ selected()!.otherAnnualCosts | currency: 'USD' : 'symbol' : '1.0-0' }}</div>
                                 </div>
-                                <div class="bg-surface-50 dark:bg-surface-800 rounded-xl p-4">
-                                    <div class="text-sm text-surface-500 dark:text-surface-400 mb-1">ROI Timeline</div>
-                                    <div class="font-semibold text-surface-900 dark:text-surface-0">{{ selected()!.roiTimeline }}</div>
-                                </div>
+                                <div class="bg-surface-50 dark:bg-surface-800 rounded-xl p-4"></div>
                             </div>
                         </div>
                     </div>
@@ -249,6 +218,6 @@ const INVESTMENTS: AutomationInvestment[] = [
 })
 export class AutomationInvestments {
     investments = INVESTMENTS;
-    selectedInvestment = signal<AutomationInvestment | null>(null);
+    selectedInvestment = signal<AutomationInvestment>(INVESTMENTS[0]);
     selected = computed(() => this.selectedInvestment());
 }
