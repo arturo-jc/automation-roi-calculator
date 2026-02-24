@@ -12,36 +12,12 @@ export interface AutomationInvestment {
     otherAnnualCosts: number;
     description: string;
     imageUrl: string;
+    defaultFtePositions: number;
+    defaultFullyLoadedAnnualCostPerFte: number;
+    defaultTimeHorizonYears: number;
 }
 
 const INVESTMENTS: AutomationInvestment[] = [
-    {
-        id: 1,
-        name: 'Autonomous Tractor',
-        category: 'Field Operations',
-        equipmentCost: 250000,
-        otherAnnualCosts: 25000,
-        description: 'Self-driving tractor capable of plowing, seeding, and field preparation with minimal human oversight.',
-        imageUrl: 'https://images.unsplash.com/photo-1605338198618-04031d6f1569?w=400&h=400&fit=crop'
-    },
-    {
-        id: 2,
-        name: 'GPS Auto-Steer System',
-        category: 'Field Operations',
-        equipmentCost: 10000,
-        otherAnnualCosts: 1500,
-        description: 'Retrofittable GPS guidance system that provides sub-inch accuracy for straight rows and reduced overlap.',
-        imageUrl: 'https://images.unsplash.com/photo-1586771107445-b3e7eb5bb3d4?w=400&h=400&fit=crop'
-    },
-    {
-        id: 3,
-        name: 'Precision Planter with Variable Rate Technology',
-        category: 'Planting',
-        equipmentCost: 50000,
-        otherAnnualCosts: 5000,
-        description: 'Advanced planter that adjusts seed spacing, depth, and population rates based on real-time soil data.',
-        imageUrl: 'https://images.unsplash.com/photo-1595508064774-5ff825a66592?w=400&h=400&fit=crop'
-    },
     {
         id: 4,
         name: 'Agricultural Drones (Spraying & Scouting)',
@@ -49,7 +25,10 @@ const INVESTMENTS: AutomationInvestment[] = [
         equipmentCost: 15000,
         otherAnnualCosts: 3000,
         description: 'Multi-purpose drones for aerial crop scouting, precision spraying, and field mapping with NDVI imaging.',
-        imageUrl: 'https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=400&h=400&fit=crop'
+        imageUrl: 'https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=400&h=400&fit=crop',
+        defaultFtePositions: 1,
+        defaultFullyLoadedAnnualCostPerFte: 45000,
+        defaultTimeHorizonYears: 3
     },
     {
         id: 5,
@@ -58,7 +37,10 @@ const INVESTMENTS: AutomationInvestment[] = [
         equipmentCost: 100000,
         otherAnnualCosts: 12000,
         description: 'AI-powered robot that identifies and removes weeds mechanically or with targeted micro-sprays, reducing herbicide use.',
-        imageUrl: 'https://images.unsplash.com/photo-1592419044706-39796d40f98c?w=400&h=400&fit=crop'
+        imageUrl: 'https://images.unsplash.com/photo-1592419044706-39796d40f98c?w=400&h=400&fit=crop',
+        defaultFtePositions: 3,
+        defaultFullyLoadedAnnualCostPerFte: 38000,
+        defaultTimeHorizonYears: 4
     },
     {
         id: 6,
@@ -67,7 +49,10 @@ const INVESTMENTS: AutomationInvestment[] = [
         equipmentCost: 5000,
         otherAnnualCosts: 800,
         description: 'Sensor-driven irrigation that monitors soil moisture at multiple depths and automates watering schedules.',
-        imageUrl: 'https://images.unsplash.com/photo-1563514227147-6d2ff665a6a0?w=400&h=400&fit=crop'
+        imageUrl: 'https://images.unsplash.com/photo-1563514227147-6d2ff665a6a0?w=400&h=400&fit=crop',
+        defaultFtePositions: 0.5,
+        defaultFullyLoadedAnnualCostPerFte: 42000,
+        defaultTimeHorizonYears: 3
     },
     {
         id: 7,
@@ -76,7 +61,10 @@ const INVESTMENTS: AutomationInvestment[] = [
         equipmentCost: 8000,
         otherAnnualCosts: 1200,
         description: 'Real-time yield mapping system installed on combines to track bushels per acre across every pass.',
-        imageUrl: 'https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=400&h=400&fit=crop'
+        imageUrl: 'https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=400&h=400&fit=crop',
+        defaultFtePositions: 0.25,
+        defaultFullyLoadedAnnualCostPerFte: 52000,
+        defaultTimeHorizonYears: 3
     },
     {
         id: 8,
@@ -85,7 +73,10 @@ const INVESTMENTS: AutomationInvestment[] = [
         equipmentCost: 3000,
         otherAnnualCosts: 500,
         description: 'Wireless sensors that track temperature, moisture, and CO₂ levels inside grain bins to prevent spoilage.',
-        imageUrl: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=400&h=400&fit=crop'
+        imageUrl: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=400&h=400&fit=crop',
+        defaultFtePositions: 0.5,
+        defaultFullyLoadedAnnualCostPerFte: 40000,
+        defaultTimeHorizonYears: 2
     },
     {
         id: 9,
@@ -94,7 +85,10 @@ const INVESTMENTS: AutomationInvestment[] = [
         equipmentCost: 10000,
         otherAnnualCosts: 2000,
         description: 'Camera-based system using machine learning to identify crop diseases, nutrient deficiencies, and pest damage early.',
-        imageUrl: 'https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=400&h=400&fit=crop'
+        imageUrl: 'https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=400&h=400&fit=crop',
+        defaultFtePositions: 1,
+        defaultFullyLoadedAnnualCostPerFte: 45000,
+        defaultTimeHorizonYears: 3
     },
     {
         id: 10,
@@ -103,7 +97,10 @@ const INVESTMENTS: AutomationInvestment[] = [
         equipmentCost: 30000,
         otherAnnualCosts: 4000,
         description: 'GPS-linked spreader that adjusts fertilizer application rates zone-by-zone based on soil test maps.',
-        imageUrl: 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400&h=400&fit=crop'
+        imageUrl: 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400&h=400&fit=crop',
+        defaultFtePositions: 1,
+        defaultFullyLoadedAnnualCostPerFte: 46000,
+        defaultTimeHorizonYears: 4
     },
     {
         id: 11,
@@ -112,7 +109,10 @@ const INVESTMENTS: AutomationInvestment[] = [
         equipmentCost: 5000,
         otherAnnualCosts: 1000,
         description: 'Wearable sensors tracking animal health, activity, feeding patterns, and estrus detection in real time.',
-        imageUrl: 'https://images.unsplash.com/photo-1527153857715-3908f2bae5e8?w=400&h=400&fit=crop'
+        imageUrl: 'https://images.unsplash.com/photo-1527153857715-3908f2bae5e8?w=400&h=400&fit=crop',
+        defaultFtePositions: 1,
+        defaultFullyLoadedAnnualCostPerFte: 44000,
+        defaultTimeHorizonYears: 3
     },
     {
         id: 12,
@@ -121,7 +121,10 @@ const INVESTMENTS: AutomationInvestment[] = [
         equipmentCost: 150000,
         otherAnnualCosts: 15000,
         description: 'Fully automated milking parlor where cows voluntarily enter and are milked by robotic arms on their own schedule.',
-        imageUrl: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=400&h=400&fit=crop'
+        imageUrl: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=400&h=400&fit=crop',
+        defaultFtePositions: 2,
+        defaultFullyLoadedAnnualCostPerFte: 45000,
+        defaultTimeHorizonYears: 5
     },
     {
         id: 13,
@@ -130,7 +133,10 @@ const INVESTMENTS: AutomationInvestment[] = [
         equipmentCost: 200000,
         otherAnnualCosts: 20000,
         description: 'Robotic harvesters for fruits and vegetables using computer vision to identify ripe produce and pick without damage.',
-        imageUrl: 'https://images.unsplash.com/photo-1601000938259-9e92002320b2?w=400&h=400&fit=crop'
+        imageUrl: 'https://images.unsplash.com/photo-1601000938259-9e92002320b2?w=400&h=400&fit=crop',
+        defaultFtePositions: 5,
+        defaultFullyLoadedAnnualCostPerFte: 36000,
+        defaultTimeHorizonYears: 5
     },
     {
         id: 14,
@@ -139,7 +145,10 @@ const INVESTMENTS: AutomationInvestment[] = [
         equipmentCost: 2000,
         otherAnnualCosts: 2000,
         description: 'Centralized platform using AI to optimize planting schedules, input purchases, labor allocation, and market timing.',
-        imageUrl: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=400&fit=crop'
+        imageUrl: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=400&fit=crop',
+        defaultFtePositions: 0.5,
+        defaultFullyLoadedAnnualCostPerFte: 60000,
+        defaultTimeHorizonYears: 2
     },
     {
         id: 15,
@@ -148,7 +157,10 @@ const INVESTMENTS: AutomationInvestment[] = [
         equipmentCost: 1500,
         otherAnnualCosts: 500,
         description: 'Hyperlocal weather station providing micro-climate data and AI-powered forecasts for spray windows and frost alerts.',
-        imageUrl: 'https://images.unsplash.com/photo-1504386106331-3e4e71712b38?w=400&h=400&fit=crop'
+        imageUrl: 'https://images.unsplash.com/photo-1504386106331-3e4e71712b38?w=400&h=400&fit=crop',
+        defaultFtePositions: 0.25,
+        defaultFullyLoadedAnnualCostPerFte: 50000,
+        defaultTimeHorizonYears: 2
     }
 ];
 
