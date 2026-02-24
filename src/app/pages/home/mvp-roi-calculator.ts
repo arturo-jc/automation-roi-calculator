@@ -29,107 +29,53 @@ interface MvpFormModel {
         <div class="rounded-2xl border border-surface-200 dark:border-surface-700 bg-surface-0 dark:bg-surface-900 p-6">
             <div class="mb-6">
                 <h2 class="text-xl font-semibold text-surface-900 dark:text-surface-0">MVP ROI Calculator</h2>
-                <p class="text-sm text-surface-500 dark:text-surface-400">
-                    Enter the minimum numbers needed to estimate investment ROI and payback.
-                </p>
+                <p class="text-sm text-surface-500 dark:text-surface-400">Enter the minimum numbers needed to estimate investment ROI and payback.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <label class="flex flex-col gap-2">
                     <span class="text-sm text-surface-600 dark:text-surface-300">Technology Name (optional)</span>
-                    <input
-                        type="text"
-                        [(ngModel)]="form.optionName"
-                        class="w-full rounded-lg border border-surface-300 dark:border-surface-600 bg-transparent px-3 py-2"
-                        placeholder="Robot / AI / CNC"
-                    />
+                    <input type="text" [(ngModel)]="form.optionName" class="w-full rounded-lg border border-surface-300 dark:border-surface-600 bg-transparent px-3 py-2" placeholder="Robot / AI / CNC" />
                 </label>
 
                 <label class="flex flex-col gap-2">
                     <span class="text-sm text-surface-600 dark:text-surface-300">Equipment Cost (required)</span>
-                    <input
-                        type="number"
-                        [(ngModel)]="form.equipmentCost"
-                        class="w-full rounded-lg border border-surface-300 dark:border-surface-600 bg-transparent px-3 py-2"
-                        min="0"
-                        step="1000"
-                    />
+                    <input type="number" [(ngModel)]="form.equipmentCost" class="w-full rounded-lg border border-surface-300 dark:border-surface-600 bg-transparent px-3 py-2" min="0" step="1000" />
                 </label>
 
                 <label class="flex flex-col gap-2">
                     <span class="text-sm text-surface-600 dark:text-surface-300">FTE Reduced (required)</span>
-                    <input
-                        type="number"
-                        [(ngModel)]="form.fteReduced"
-                        class="w-full rounded-lg border border-surface-300 dark:border-surface-600 bg-transparent px-3 py-2"
-                        min="0"
-                        step="0.1"
-                    />
+                    <input type="number" [(ngModel)]="form.fteReduced" class="w-full rounded-lg border border-surface-300 dark:border-surface-600 bg-transparent px-3 py-2" min="0" step="0.1" />
                 </label>
 
                 <label class="flex flex-col gap-2">
-                    <span class="text-sm text-surface-600 dark:text-surface-300"
-                        >Fully-Loaded Annual Cost per FTE (required)</span
-                    >
-                    <input
-                        type="number"
-                        [(ngModel)]="form.fullyLoadedAnnualCostPerFte"
-                        class="w-full rounded-lg border border-surface-300 dark:border-surface-600 bg-transparent px-3 py-2"
-                        min="0"
-                        step="1000"
-                    />
+                    <span class="text-sm text-surface-600 dark:text-surface-300">Fully-Loaded Annual Cost per FTE (required)</span>
+                    <input type="number" [(ngModel)]="form.fullyLoadedAnnualCostPerFte" class="w-full rounded-lg border border-surface-300 dark:border-surface-600 bg-transparent px-3 py-2" min="0" step="1000" />
                 </label>
 
                 <label class="flex flex-col gap-2">
                     <span class="text-sm text-surface-600 dark:text-surface-300">Annual Operating Costs</span>
-                    <input
-                        type="number"
-                        [(ngModel)]="form.annualOperatingCosts"
-                        class="w-full rounded-lg border border-surface-300 dark:border-surface-600 bg-transparent px-3 py-2"
-                        min="0"
-                        step="1000"
-                    />
+                    <input type="number" [(ngModel)]="form.annualOperatingCosts" class="w-full rounded-lg border border-surface-300 dark:border-surface-600 bg-transparent px-3 py-2" min="0" step="1000" />
                 </label>
 
                 <label class="flex flex-col gap-2">
                     <span class="text-sm text-surface-600 dark:text-surface-300">Annual Productivity Profit Increase</span>
-                    <input
-                        type="number"
-                        [(ngModel)]="form.annualProfitIncrease"
-                        class="w-full rounded-lg border border-surface-300 dark:border-surface-600 bg-transparent px-3 py-2"
-                        min="0"
-                        step="1000"
-                    />
+                    <input type="number" [(ngModel)]="form.annualProfitIncrease" class="w-full rounded-lg border border-surface-300 dark:border-surface-600 bg-transparent px-3 py-2" min="0" step="1000" />
                 </label>
 
                 <label class="flex flex-col gap-2">
                     <span class="text-sm text-surface-600 dark:text-surface-300">Other Annual Savings</span>
-                    <input
-                        type="number"
-                        [(ngModel)]="form.annualOtherSavings"
-                        class="w-full rounded-lg border border-surface-300 dark:border-surface-600 bg-transparent px-3 py-2"
-                        min="0"
-                        step="1000"
-                    />
+                    <input type="number" [(ngModel)]="form.annualOtherSavings" class="w-full rounded-lg border border-surface-300 dark:border-surface-600 bg-transparent px-3 py-2" min="0" step="1000" />
                 </label>
 
                 <label class="flex flex-col gap-2">
                     <span class="text-sm text-surface-600 dark:text-surface-300">Time Horizon (years, required)</span>
-                    <input
-                        type="number"
-                        [(ngModel)]="form.timeHorizonYears"
-                        class="w-full rounded-lg border border-surface-300 dark:border-surface-600 bg-transparent px-3 py-2"
-                        min="1"
-                        step="1"
-                    />
+                    <input type="number" [(ngModel)]="form.timeHorizonYears" class="w-full rounded-lg border border-surface-300 dark:border-surface-600 bg-transparent px-3 py-2" min="1" step="1" />
                 </label>
 
                 <label class="flex flex-col gap-2">
                     <span class="text-sm text-surface-600 dark:text-surface-300">Grant Type</span>
-                    <select
-                        [(ngModel)]="form.grantType"
-                        class="w-full rounded-lg border border-surface-300 dark:border-surface-600 bg-transparent px-3 py-2"
-                    >
+                    <select [(ngModel)]="form.grantType" class="w-full rounded-lg border border-surface-300 dark:border-surface-600 bg-transparent px-3 py-2">
                         <option value="none">No Grant</option>
                         <option value="percent">Grant %</option>
                         <option value="amount">Grant Amount</option>
@@ -139,27 +85,14 @@ interface MvpFormModel {
                 @if (form.grantType === 'percent') {
                     <label class="flex flex-col gap-2">
                         <span class="text-sm text-surface-600 dark:text-surface-300">Grant Percent (%)</span>
-                        <input
-                            type="number"
-                            [(ngModel)]="form.grantPercent"
-                            class="w-full rounded-lg border border-surface-300 dark:border-surface-600 bg-transparent px-3 py-2"
-                            min="0"
-                            max="100"
-                            step="1"
-                        />
+                        <input type="number" [(ngModel)]="form.grantPercent" class="w-full rounded-lg border border-surface-300 dark:border-surface-600 bg-transparent px-3 py-2" min="0" max="100" step="1" />
                     </label>
                 }
 
                 @if (form.grantType === 'amount') {
                     <label class="flex flex-col gap-2">
                         <span class="text-sm text-surface-600 dark:text-surface-300">Grant Amount</span>
-                        <input
-                            type="number"
-                            [(ngModel)]="form.grantAmount"
-                            class="w-full rounded-lg border border-surface-300 dark:border-surface-600 bg-transparent px-3 py-2"
-                            min="0"
-                            step="1000"
-                        />
+                        <input type="number" [(ngModel)]="form.grantAmount" class="w-full rounded-lg border border-surface-300 dark:border-surface-600 bg-transparent px-3 py-2" min="0" step="1000" />
                     </label>
                 }
             </div>
@@ -172,24 +105,12 @@ interface MvpFormModel {
             @if (form.includeNpv) {
                 <label class="mt-3 flex flex-col gap-2 max-w-xs">
                     <span class="text-sm text-surface-600 dark:text-surface-300">Discount Rate (%)</span>
-                    <input
-                        type="number"
-                        [(ngModel)]="form.discountRatePercent"
-                        class="w-full rounded-lg border border-surface-300 dark:border-surface-600 bg-transparent px-3 py-2"
-                        min="0"
-                        step="0.1"
-                    />
+                    <input type="number" [(ngModel)]="form.discountRatePercent" class="w-full rounded-lg border border-surface-300 dark:border-surface-600 bg-transparent px-3 py-2" min="0" step="0.1" />
                 </label>
             }
 
             <div class="mt-6">
-                <button
-                    type="button"
-                    (click)="calculateMvp()"
-                    class="rounded-lg bg-primary text-primary-contrast px-4 py-2 text-sm font-medium"
-                >
-                    Calculate
-                </button>
+                <button type="button" (click)="calculateMvp()" class="rounded-lg bg-primary text-primary-contrast px-4 py-2 text-sm font-medium">Calculate</button>
             </div>
 
             @if (validationError) {
@@ -271,28 +192,28 @@ export class MvpRoiCalculator {
         }
 
         const input: RoiCalculationInput = {
-            optionName: this.emptyToUndefined(this.form.optionName),
+            // optionName: this.emptyToUndefined(this.form.optionName),
             investment: {
-                equipmentCost: this.form.equipmentCost,
-                grantPercent: this.form.grantType === 'percent' ? this.form.grantPercent / 100 : undefined,
-                grantAmount: this.form.grantType === 'amount' ? this.form.grantAmount : undefined
+                equipmentCost: this.form.equipmentCost
+                // grantPercent: this.form.grantType === 'percent' ? this.form.grantPercent / 100 : undefined,
+                // grantAmount: this.form.grantType === 'amount' ? this.form.grantAmount : undefined
             },
             labour: {
                 fteReduced: this.form.fteReduced,
                 fullyLoadedAnnualCostPerFte: this.form.fullyLoadedAnnualCostPerFte
             },
-            productivity:
-                this.form.annualProfitIncrease > 0
-                    ? {
-                          annualProfitIncrease: this.form.annualProfitIncrease
-                      }
-                    : undefined,
-            annualSavings:
-                this.form.annualOtherSavings > 0
-                    ? {
-                          otherSavings: this.form.annualOtherSavings
-                      }
-                    : undefined,
+            // productivity:
+            //     this.form.annualProfitIncrease > 0
+            //         ? {
+            //               annualProfitIncrease: this.form.annualProfitIncrease
+            //           }
+            //         : undefined,
+            // annualSavings:
+            //     this.form.annualOtherSavings > 0
+            //         ? {
+            //               otherSavings: this.form.annualOtherSavings
+            //           }
+            //         : undefined,
             annualCosts: {
                 otherAnnualCosts: this.form.annualOperatingCosts
             },
