@@ -17,7 +17,7 @@
                 {{ investment()!.description }}
             </p>
 
-            <div class="grid grid-cols-3 gap-4">
+            <div class="grid grid-cols-3 gap-4 mb-6">
                 <div class="bg-surface-50 dark:bg-surface-800 rounded-xl p-4">
                     <div class="text-sm text-surface-500 dark:text-surface-400 mb-1">Equipment Cost</div>
                     <div class="font-semibold text-surface-900 dark:text-surface-0">{{ investment()!.equipmentCost | currency: 'USD' : 'symbol' : '1.0-0' }}</div>
@@ -27,6 +27,42 @@
                     <div class="font-semibold text-surface-900 dark:text-surface-0">{{ investment()!.otherAnnualCosts | currency: 'USD' : 'symbol' : '1.0-0' }}</div>
                 </div>
                 <div class="bg-surface-50 dark:bg-surface-800 rounded-xl p-4"></div>
+            </div>
+
+            <!-- ROI Parameters Form -->
+            <div class="border-t border-surface-200 dark:border-surface-700 pt-6">
+                <h3 class="text-lg font-semibold text-surface-900 dark:text-surface-0 mb-4">ROI Parameters</h3>
+
+                <div class="grid grid-cols-2 gap-x-4 gap-y-6">
+                    <p-floatlabel variant="on" class="w-full">
+                        <p-inputnumber [(ngModel)]="ftePositions" inputId="ftePositions" [minFractionDigits]="0" [maxFractionDigits]="2" [min]="0" class="w-full" [inputStyleClass]="'w-full'" />
+                        <label for="ftePositions">FTE Positions</label>
+                    </p-floatlabel>
+
+                    <p-floatlabel variant="on" class="w-full">
+                        <p-inputnumber [(ngModel)]="fullyLoadedAnnualCostPerFte" inputId="fullyLoadedAnnualCostPerFte" mode="currency" currency="USD" locale="en-US" [min]="0" class="w-full" [inputStyleClass]="'w-full'" />
+                        <label for="fullyLoadedAnnualCostPerFte">Annual Cost Per FTE</label>
+                    </p-floatlabel>
+
+                    <p-floatlabel variant="on" class="w-full">
+                        <p-inputnumber [(ngModel)]="timeHorizonYears" inputId="timeHorizonYears" [minFractionDigits]="0" [maxFractionDigits]="0" [min]="1" suffix=" years" class="w-full" [inputStyleClass]="'w-full'" />
+                        <label for="timeHorizonYears">Time Horizon</label>
+                    </p-floatlabel>
+
+                    <div class="flex items-center">
+                        <p-checkbox [(ngModel)]="includeNpv" inputId="includeNpv" [binary]="true" />
+                        <label for="includeNpv" class="ml-2 text-surface-700 dark:text-surface-300">Include NPV</label>
+                    </div>
+                </div>
+
+                @if (includeNpv) {
+                    <div class="grid grid-cols-2 gap-x-4 gap-y-6 mt-6">
+                        <p-floatlabel variant="on" class="w-full">
+                            <p-inputnumber [(ngModel)]="discountRatePercent" inputId="discountRatePercent" [minFractionDigits]="0" [maxFractionDigits]="2" [min]="0" [max]="100" suffix="%" class="w-full" [inputStyleClass]="'w-full'" />
+                            <label for="discountRatePercent">Discount Rate</label>
+                        </p-floatlabel>
+                    </div>
+                }
             </div>
         </div>
     </div>
