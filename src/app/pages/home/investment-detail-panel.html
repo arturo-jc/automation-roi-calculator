@@ -114,11 +114,52 @@
                                 [disabled]="reportGenerating()"
                                 (onClick)="generateInternalRoiReport()"
                             />
-                            <p-button label="Search for Grants" [outlined]="true" styleClass="w-full" class="flex-1" />
+                            <p-button
+                                label="Search for Grants"
+                                [outlined]="true"
+                                styleClass="w-full"
+                                class="flex-1"
+                                [loading]="grantsLoading()"
+                                [disabled]="grantsLoading()"
+                                (onClick)="searchForGrants()"
+                            />
                         </div>
                         @if (reportError()) {
                             <div class="col-span-3 text-red-600 dark:text-red-400 text-sm">
                                 {{ reportError() }}
+                            </div>
+                        }
+                        @if (grantsError()) {
+                            <div class="col-span-3 text-red-600 dark:text-red-400 text-sm">
+                                {{ grantsError() }}
+                            </div>
+                        }
+                        @if (grants().length > 0) {
+                            <div class="col-span-3 bg-surface-50 dark:bg-surface-800 rounded-xl p-4">
+                                <div class="text-sm text-surface-500 dark:text-surface-400 mb-2">Select a grant to apply in ROI calculation</div>
+                                <select
+                                    class="w-full rounded-lg border border-surface-300 dark:border-surface-700 bg-surface-0 dark:bg-surface-900 p-2 text-surface-900 dark:text-surface-0"
+                                    [ngModel]="selectedGrantId() ?? ''"
+                                    (ngModelChange)="onGrantSelectionChange($event)"
+                                >
+                                    <option value="">No grant selected</option>
+                                    @for (grant of grants(); track grant.id) {
+                                        <option [value]="grant.id">
+                                            {{ grant.name }} ({{ grant.status }})
+                                        </option>
+                                    }
+                                </select>
+
+                                @if (selectedGrant()) {
+                                    <div class="mt-3 text-sm text-surface-700 dark:text-surface-300">
+                                        <div class="font-medium text-surface-900 dark:text-surface-0">
+                                            {{ selectedGrant()!.name }}
+                                        </div>
+                                        <div>{{ selectedGrant()!.provider }}</div>
+                                        <div>{{ selectedGrant()!.displayValue }}</div>
+                                        <div>{{ describeGrantApplication(selectedGrant()!) }}</div>
+                                    </div>
+                                }
                             </div>
                         }
                     </div>

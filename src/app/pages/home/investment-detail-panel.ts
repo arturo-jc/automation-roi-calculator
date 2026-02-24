@@ -1,4 +1,4 @@
-import { Component, effect, inject, input, signal } from '@angular/core';
+import { Component, computed, effect, inject, input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AutomationInvestment } from './automation-investments';
@@ -7,6 +7,26 @@ import { Checkbox } from 'primeng/checkbox';
 import { FloatLabel } from 'primeng/floatlabel';
 import { ButtonModule } from 'primeng/button';
 import { Calculate, type RoiCalculationInput, type RoiCalculationResult } from '../../service/calculate';
+
+interface GrantCalculationHint {
+    grantAmount: number | null;
+    grantPercent: number | null;
+}
+
+interface GrantOption {
+    id: string;
+    name: string;
+    provider: string;
+    status: string;
+    summary: string;
+    displayValue: string;
+    calculationHint: GrantCalculationHint;
+}
+
+interface ResolvedGrantInput {
+    grantAmount?: number;
+    grantPercent?: number;
+}
 
 @Component({
     selector: 'app-investment-detail-panel',
@@ -28,6 +48,11 @@ export class InvestmentDetailPanel {
     result: RoiCalculationResult | null = null;
     reportGenerating = signal(false);
     reportError = signal<string | null>(null);
+    grantsLoading = signal(false);
+    grantsError = signal<string | null>(null);
+    grants = signal<GrantOption[]>([]);
+    selectedGrantId = signal<string | null>(null);
+    selectedGrant = computed(() => this.grants().find((grant) => grant.id === this.selectedGrantId()) ?? null);
 
     constructor() {
         effect(() => {
@@ -58,6 +83,40 @@ export class InvestmentDetailPanel {
         }
 
         this.result = this.calculateService.calculate(input);
+    }
+
+    async searchForGrants(): Promise<void> {
+        this.grantsError.set(null);
+        this.grantsLoading.set(true);
+
+        try {
+            const response = await fetch(this.resolveGrantsApiUrl());
+            if (!response.ok) {
+                const bodyText = await response.text();
+                throw new Error(bodyText || `Request failed with status ${response.status}.`);
+            }
+
+            const data = (await response.json()) as { grants?: unknown };
+            const parsedGrants = this.parseGrantsFromResponse(data);
+            const previousGrantId = this.selectedGrantId();
+
+            this.grants.set(parsedGrants);
+            if (!previousGrantId || !parsedGrants.some((grant) => grant.id === previousGrantId)) {
+                this.selectedGrantId.set(null);
+            }
+        } catch (error) {
+            console.error(error);
+            this.grantsError.set('Failed to retrieve grants. Please try again.');
+        } finally {
+            this.grantsLoading.set(false);
+        }
+    }
+
+    onGrantSelectionChange(selectedGrantId: string): void {
+        this.selectedGrantId.set(selectedGrantId || null);
+        if (this.result) {
+            this.calculate();
+        }
     }
 
     async generateInternalRoiReport(): Promise<void> {
@@ -117,16 +176,45 @@ export class InvestmentDetailPanel {
         return `${years} years ${months} months`;
     }
 
+    formatPercent(value: number): string {
+        return `${(value * 100).toFixed(2)}%`;
+    }
+
+    describeGrantApplication(grant: GrantOption): string {
+        const hint = grant.calculationHint;
+        const grantAmount = this.isFiniteNumber(hint.grantAmount) ? Math.max(0, hint.grantAmount) : null;
+        const grantPercent = this.isFiniteNumber(hint.grantPercent) ? this.clamp(hint.grantPercent, 0, 1) : null;
+
+        if (grantAmount !== null && grantPercent !== null) {
+            return `Applied as the lower of ${this.formatPercent(grantPercent)} of equipment cost and ${this.formatCurrency(grantAmount)}.`;
+        }
+
+        if (grantAmount !== null) {
+            return `Applied in calculation as grant amount: ${this.formatCurrency(grantAmount)}.`;
+        }
+
+        if (grantPercent !== null) {
+            return `Applied in calculation as grant percent: ${this.formatPercent(grantPercent)}.`;
+        }
+
+        return 'No direct grant amount/percent available for automatic ROI input.';
+    }
+
     private buildCalculationInput(): RoiCalculationInput | null {
         const inv = this.investment();
         if (!inv) {
             return null;
         }
 
+        const selectedGrant = this.selectedGrant();
+        const resolvedGrant = this.resolveGrantInput(inv.equipmentCost, selectedGrant?.calculationHint ?? null);
+
         return {
             optionName: inv.name,
             investment: {
-                equipmentCost: inv.equipmentCost
+                equipmentCost: inv.equipmentCost,
+                grantAmount: resolvedGrant.grantAmount,
+                grantPercent: resolvedGrant.grantPercent
             },
             labour: {
                 fteReduced: this.ftePositions ?? 0,
@@ -148,6 +236,15 @@ export class InvestmentDetailPanel {
         }
 
         return 'https://api.stepbystepstrength.com/api/reports/pdf';
+    }
+
+    private resolveGrantsApiUrl(): string {
+        const path = '/api/grants?country=CA';
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            return `http://localhost:4000${path}`;
+        }
+
+        return path;
     }
 
     private extractFilename(contentDisposition: string | null): string {
@@ -177,5 +274,101 @@ export class InvestmentDetailPanel {
         anchor.click();
         anchor.remove();
         URL.revokeObjectURL(objectUrl);
+    }
+
+    private parseGrantsFromResponse(payload: { grants?: unknown }): GrantOption[] {
+        if (!Array.isArray(payload.grants)) {
+            return [];
+        }
+
+        const parsed: GrantOption[] = [];
+        for (const grant of payload.grants) {
+            const item = this.parseSingleGrant(grant);
+            if (item) {
+                parsed.push(item);
+            }
+        }
+
+        return parsed;
+    }
+
+    private parseSingleGrant(grant: unknown): GrantOption | null {
+        const record = this.asRecord(grant);
+        if (!record) {
+            return null;
+        }
+
+        const id = typeof record['id'] === 'string' ? record['id'] : '';
+        const name = typeof record['name'] === 'string' ? record['name'] : '';
+        if (!id || !name) {
+            return null;
+        }
+
+        const hintRecord = this.asRecord(record['calculationHint']);
+        const calculationHint: GrantCalculationHint = {
+            grantAmount: this.toNullableNumber(hintRecord?.['grantAmount']),
+            grantPercent: this.toNullableNumber(hintRecord?.['grantPercent'])
+        };
+
+        return {
+            id,
+            name,
+            provider: typeof record['provider'] === 'string' ? record['provider'] : 'Unknown provider',
+            status: typeof record['status'] === 'string' ? record['status'] : 'unknown',
+            summary: typeof record['summary'] === 'string' ? record['summary'] : '',
+            displayValue: typeof record['displayValue'] === 'string' ? record['displayValue'] : '',
+            calculationHint
+        };
+    }
+
+    private asRecord(value: unknown): Record<string, unknown> | null {
+        if (!value || typeof value !== 'object' || Array.isArray(value)) {
+            return null;
+        }
+
+        return value as Record<string, unknown>;
+    }
+
+    private toNullableNumber(value: unknown): number | null {
+        return typeof value === 'number' && Number.isFinite(value) ? value : null;
+    }
+
+    private isFiniteNumber(value: number | null): value is number {
+        return typeof value === 'number' && Number.isFinite(value);
+    }
+
+    private resolveGrantInput(equipmentCost: number, hint: GrantCalculationHint | null): ResolvedGrantInput {
+        if (!hint) {
+            return {};
+        }
+
+        const grantAmountCap = this.isFiniteNumber(hint.grantAmount) ? Math.max(0, hint.grantAmount) : null;
+        const grantPercent = this.isFiniteNumber(hint.grantPercent) ? this.clamp(hint.grantPercent, 0, 1) : null;
+        const normalizedCost = Math.max(0, equipmentCost);
+
+        if (grantAmountCap !== null && grantPercent !== null) {
+            const percentLimitedAmount = normalizedCost * grantPercent;
+            return {
+                grantAmount: Math.min(grantAmountCap, percentLimitedAmount)
+            };
+        }
+
+        if (grantAmountCap !== null) {
+            return {
+                grantAmount: grantAmountCap
+            };
+        }
+
+        if (grantPercent !== null) {
+            return {
+                grantPercent
+            };
+        }
+
+        return {};
+    }
+
+    private clamp(value: number, min: number, max: number): number {
+        return Math.min(max, Math.max(min, value));
     }
 }
